@@ -1,0 +1,35 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Timestamp",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Timestamp"
+					}
+				],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "timestamp",
+							"value": {
+								"type": "Expression",
+								"content": "@utcNow()"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}
