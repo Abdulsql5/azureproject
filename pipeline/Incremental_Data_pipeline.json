@@ -3,18 +3,14 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Timestamp",
+				"name": "CurrentTime",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [
-					{
-						"name": "Timestamp"
-					}
-				],
+				"userProperties": [],
 				"typeProperties": {
 					"variableName": "Current_time",
 					"value": {
