@@ -16,20 +16,19 @@
 					}
 				],
 				"typeProperties": {
-					"variableName": "pipelineReturnValue",
-					"value": [
-						{
-							"key": "timestamp",
-							"value": {
-								"type": "Expression",
-								"content": "@utcNow()"
-							}
-						}
-					],
-					"setSystemVariable": true
+					"variableName": "Current_time",
+					"value": {
+						"value": "@utcNow()",
+						"type": "Expression"
+					}
 				}
 			}
 		],
+		"variables": {
+			"Current_time": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
