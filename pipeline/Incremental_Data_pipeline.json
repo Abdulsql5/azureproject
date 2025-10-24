@@ -85,7 +85,15 @@
 					},
 					"dataset": {
 						"referenceName": "latestUpdatedDate",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "bronze",
+							"folder": {
+								"value": "@{pipeline().parameters.table}",
+								"type": "Expression"
+							},
+							"file": "cdc.json"
+						}
 					},
 					"firstRowOnly": false
 				}
