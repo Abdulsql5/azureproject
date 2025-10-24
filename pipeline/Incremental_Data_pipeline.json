@@ -48,7 +48,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM\n@{pipeline().parameters.scheme}.@{pipeline().parameters.table}\nWHERE @{pipeline().parameters.updated_column} > '@{activity('Get_lastUpdatedDate').output.value[0].cdc}'",
+							"value": "SELECT * FROM\n@{pipeline().parameters.scheme}.@{pipeline().parameters.table}\nWHERE @{pipeline().parameters.updated_column} > '@{activity('Get_lastUpdatedDate').output.value[0].cdc}'\n\ninsert into last_ingested_dates values ('@{pipeline().parameters.table}','@{activity('Get_lastUpdatedDate').output.value[0].cdc}'\n)",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
