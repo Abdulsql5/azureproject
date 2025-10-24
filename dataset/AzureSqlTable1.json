@@ -1,0 +1,23 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlLink",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"scheme": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			},
+			"updated_colm": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

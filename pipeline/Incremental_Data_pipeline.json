@@ -18,8 +18,46 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "AzureSQltoDatalake",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
+		"parameters": {
+			"scheme": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			},
+			"updated_column": {
+				"type": "string"
+			}
+		},
 		"variables": {
 			"Current_time": {
 				"type": "String"
