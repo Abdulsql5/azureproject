@@ -21,7 +21,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "latestUpdatedDate.json",
+				"fileName": {
+					"value": "@dataset().file",
+					"type": "Expression"
+				},
 				"folderPath": {
 					"value": "@concat(dataset().folder,'_','cdc')",
 					"type": "Expression"
