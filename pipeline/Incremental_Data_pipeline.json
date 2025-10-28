@@ -289,7 +289,7 @@
 						{
 							"type": "Query",
 							"text": {
-								"value": "MERGE [dbo].[last_ingested_dates]as Target \nUSING (\n    SELECT '@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}' AS LastUpdatedDate,\n    '@{pipeline().parameters.table}' as tablename\n) as Source\non Target.tablename = Source.tablename\nWHEN MATCHED THEN\nUPDATE SET Target.last_ingested_date\n = Source.LastUpdatedDate where \nWHEN NOT MATCHED THEN\nINSERT (tablename,last_ingested_date) VALUES (Source.tablename,Source.LastUpdatedDate)",
+								"value": "MERGE [dbo].[last_ingested_dates]as Target \nUSING (\n    SELECT '@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}' AS LastUpdatedDate,\n    '@{pipeline().parameters.table}' as tablename\n) as Source\non Target.tablename = Source.tablename\nWHEN MATCHED THEN\nUPDATE SET Target.last_ingested_date\n = Source.LastUpdatedDate \nWHEN NOT MATCHED THEN\nINSERT (tablename,last_ingested_date) VALUES (Source.tablename,Source.LastUpdatedDate)",
 								"type": "Expression"
 							}
 						}
