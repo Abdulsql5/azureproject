@@ -164,7 +164,7 @@
 						{
 							"type": "Query",
 							"text": {
-								"value": "SELECT MAX(@{pipeline().parameters.updated_column})\nFROM @{pipeline().parameters.scheme}.@{pipeline().parameters.table}",
+								"value": "SELECT MAX(@{pipeline().parameters.updated_column}) AS LastUpdatedDate\nFROM @{pipeline().parameters.scheme}.@{pipeline().parameters.table}",
 								"type": "Expression"
 							}
 						}
