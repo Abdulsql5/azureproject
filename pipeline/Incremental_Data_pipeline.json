@@ -205,7 +205,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@{activity('Get_Max_Ingesteddate').output.reseultset[0].rows[0].LastUpdatedDate}",
+							"value": "@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
