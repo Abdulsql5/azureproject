@@ -175,6 +175,8 @@
 			{
 				"name": "UpdateMaxIngestedDate",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get_Max_Ingesteddate",
@@ -203,15 +205,14 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": {
-								"value": "@variables('keycolumn')",
-								"type": "Expression"
-							}
+						"writeBehavior": {
+							"value": "MERGE [dbo].[last_ingested_dates] as target\nusing (\n    SELECT @{pipeline().parameters.table} AS tablename,\n    @{activity('Get_Max_Ingesteddate').output.value[0]} AS Lastupdateddate\n) as source\non target.tablename = source.tablename\nwhen matched then\n    UPDATE SET target.last_ingested_date = source.Lastupdateddate\nwhen not macthed then\n    INSERT (tablename,last_ingested_date) VALUES\n    (source.tablename,source.Lastupdateddate);\n",
+							"type": "Expression"
 						},
 						"sqlWriterUseTableLock": false,
+						"upsertSettings": {
+							"useTempDB": false
+						},
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
