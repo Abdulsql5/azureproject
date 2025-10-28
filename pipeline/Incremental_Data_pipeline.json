@@ -123,7 +123,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "IF EXISTS (SELECT 1 FROM [dbo].[last_ingested_dates]\nWHERE tablename = '@{pipeline().parameters.table}')\nBEGIN\nselect MAX(last_ingested_date\n) AS LASTINJECTEDDATE\nFROM [dbo].[last_ingested_dates] where tablename = '@{pipeline().parameters.table}'\nEND\nELSE\nSELECT '1990-01-01' LASTINJECTEDDATE\nEND",
+							"value": "IF EXISTS (SELECT 1 FROM [dbo].[last_ingested_dates]\nWHERE tablename = '@{pipeline().parameters.table}')\nBEGIN\nselect MAX(last_ingested_date\n) AS LASTINJECTEDDATE\nFROM [dbo].[last_ingested_dates] where tablename = '@{pipeline().parameters.table}'\nEND\nELSE\nBEGIN\nSELECT '1990-01-01' LASTINJECTEDDATE\nEND",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
