@@ -121,26 +121,26 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select MAX(last_ingested_date\n)\nfrom @{pipeline().parameters.scheme}.@{pipeline().parameters.table}",
+							"type": "Expression"
 						},
-						"formatSettings": {
-							"type": "JsonReadSettings"
-						}
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "latestUpdatedDate",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "bronze",
-							"folder": {
-								"value": "@{pipeline().parameters.table}",
+							"schema": {
+								"value": "@pipeline().parameters.scheme",
 								"type": "Expression"
 							},
-							"file": "cdc.json"
+							"tablename": {
+								"value": "@pipeline().parameters.table",
+								"type": "Expression"
+							}
 						}
 					},
 					"firstRowOnly": false
@@ -313,11 +313,8 @@
 			"Current_time": {
 				"type": "String"
 			},
-			"keycolumn": {
-				"type": "Array",
-				"defaultValue": [
-					"tablename"
-				]
+			"lastupdated_date": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
