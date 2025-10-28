@@ -48,7 +48,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM \n@{pipeline().parameters.scheme}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.updated_column} > '@{activity('Get_lastUpdatedDate').output.value[0].cdc}';\n\nIF NOT EXISTS (SELECT 1 FROM dbo.last_ingested_dates\n WHERE tablename = )@{pipeline().parameters.scheme}.@{pipeline().parameters.table} )\nBEGIN\n\ninsert into dbo.last_ingested_dates values ('@{pipeline().parameters.table}','@{activity('Get_lastUpdatedDate').output.value[0].cdc}'\n)\n\nEND",
+							"value": "SELECT * FROM \n@{pipeline().parameters.scheme}.@{pipeline().parameters.table} \nWHERE @{pipeline().parameters.updated_column} > '@{activity('Get_lastUpdatedDate').output.value[0].cdc}';\n\nIF NOT EXISTS (SELECT 1 FROM dbo.last_ingested_dates\n WHERE tablename = @{pipeline().parameters.scheme}.@{pipeline().parameters.table} )\nBEGIN\n\ninsert into dbo.last_ingested_dates values ('@{pipeline().parameters.table}','@{activity('Get_lastUpdatedDate').output.value[0].cdc}'\n)\n\nEND",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -100,7 +100,7 @@
 								"type": "Expression"
 							},
 							"filename": {
-								"value": "@concat(pipeline().parameters.table,'_',variables('Current_time'))",
+								"value": "@{concat(pipeline().parameters.table,'_',variables('Current_time'))}",
 								"type": "Expression"
 							}
 						}
