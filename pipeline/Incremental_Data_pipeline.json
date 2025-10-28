@@ -185,14 +185,7 @@
 			{
 				"name": "UpdateMaxIngestedDate",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Get_Max_Ingesteddate",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -265,6 +258,42 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "Get_Max_Ingesteddate",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSqlLink",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": {
+								"value": "MERGE [dbo].[last_ingested_dates]as Target \nUSING (\n    SELECT '@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}' AS LastUpdatedDate,\n    '@{pipeline().parameters.table}' as tablename\n) as Source\non Target.tablename = Source.tablename\nWHEN MATCHED THEN\nUPDATE SET Target.last_ingested_date\n = Source.LastUpdatedDate where \nWHEN NOT MATCHED THEN\nINSERT (tablename,last_ingested_date) VALUES (Source.tablename,Source.LastUpdatedDate)",
+								"type": "Expression"
+							}
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
 			}
 		],
 		"parameters": {
