@@ -214,7 +214,7 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"writeBehavior": {
-							"value": "MERGE [dbo].[last_ingested_dates] as target\nusing (\n    SELECT @{pipeline().parameters.table} AS tablename,\n    '@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}' AS Lastupdateddate\n) as source\non target.tablename = source.tablename\nwhen matched then\n    UPDATE SET target.last_ingested_date = source.Lastupdateddate\nwhen not macthed then\n    INSERT (tablename,last_ingested_date) VALUES\n    (source.tablename,source.Lastupdateddate);\n",
+							"value": "MERGE [dbo].[last_ingested_dates] as target\nusing (\n    SELECT '@{pipeline().parameters.table}' AS tablename,\n    '@{activity('Get_Max_Ingesteddate').output.resultSets[0].rows[0].LastUpdatedDate}' AS Lastupdateddate\n) as source \non target.tablename = source.tablename \nwhen matched then \n    UPDATE SET target.last_ingested_date = source.Lastupdateddate \nwhen not macthed then \n    INSERT (tablename,last_ingested_date) VALUES\n    (source.tablename,source.Lastupdateddate);\n",
 							"type": "Expression"
 						},
 						"sqlWriterUseTableLock": false,
