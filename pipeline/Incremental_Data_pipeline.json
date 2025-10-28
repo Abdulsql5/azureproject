@@ -175,8 +175,6 @@
 			{
 				"name": "UpdateMaxIngestedDate",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get_Max_Ingesteddate",
@@ -197,7 +195,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "@activity('Get_Max_Ingesteddate').output",
+							"value": "@{activity('Get_Max_Ingesteddate').output.reseultset[0].rows[0].LastUpdatedDate}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
